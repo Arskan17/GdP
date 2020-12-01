@@ -22,7 +22,8 @@ let rec sum (xs: List<Nat>): Nat =
 
 // e)
 let digitSum (x: Nat): Nat =
-    failwith "TODO"
+    if x = 0N then 0N
+    else sum(digits x)
 
 // f)
 let rec notUntil<'a when 'a: equality> (x: 'a) (xs: List<'a>): Nat =
