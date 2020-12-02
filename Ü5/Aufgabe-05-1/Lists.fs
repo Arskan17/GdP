@@ -18,13 +18,16 @@ let rec digits (x: Nat): List<Nat> =
 
 // d)
 let rec sum (xs: List<Nat>): Nat =
-    failwith "TODO"
+    match xs with
+        | [] -> 0N
+        | (a::b) -> a + sum b 
 
 // e)
 let digitSum (x: Nat): Nat =
-    if x = 0N then 0N
-    else sum(digits x)
-
+    match x with
+        | 0N -> []
+        | (a::b) -> sum(digits x)
+ 
 // f)
 let rec notUntil<'a when 'a: equality> (x: 'a) (xs: List<'a>): Nat =
     failwith "TODO"
