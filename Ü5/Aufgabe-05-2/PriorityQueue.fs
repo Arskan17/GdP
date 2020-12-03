@@ -19,11 +19,15 @@ let exElem = {priority=5N; value=7N}
 
 // a)
 let isEmpty<'a> (xs: PQ<'a>): Bool =
-    failwith "TODO"
+    xs.IsEmpty
 
 // b)
 let rec insert<'a> (x: QElem<'a>) (xs: PQ<'a>): PQ<'a> =
-    failwith "TODO"
+    match x with
+        | []      -> [xs]
+        | a::b    -> let i = insert b xs
+                        if xs.priority <= a.priority then i.Head::a::i.Tail
+                        else a::i
 
 // c)
 let extractMin<'a> (xs: PQ<'a>): Option<QElem<'a>> * PQ<'a> =
