@@ -21,18 +21,26 @@ let exElem = {priority=5N; value=7N}
 let isEmpty<'a> (xs: PQ<'a>): Bool =
     xs.IsEmpty
 
+ 
 // b)
 let rec insert<'a> (x: QElem<'a>) (xs: PQ<'a>): PQ<'a> =
-    match x with
-        | []      -> [xs]
-        | a::b    -> let i = insert b xs
-                        if xs.priority <= a.priority then i.Head::a::i.Tail
-                        else a::i
+    match xs with
+        | []   -> x::xs
+        | i::j -> let n = insert x j
+                  if x.priority <= i.priority then x::xs
+                  else i::n
 
-// c)
+ 
+/// c)
 let extractMin<'a> (xs: PQ<'a>): Option<QElem<'a>> * PQ<'a> =
-    failwith "TODO"
+    failwith "match xs with
+        | []   -> None
+        | i::j -> Some (i,j)"
 
+ 
 // d)
 let rec merge<'a> (xs: PQ<'a>) (ys: PQ<'a>): PQ<'a> =
-    failwith "TODO"
+    failwith "match (xs, ys) with
+        |([],zs)|(zs,[]) -> zs
+        |(i::j, k::l)    -> if i <= k then i :: merge j (k::l)
+                            else k :: merge (i::j) l"
