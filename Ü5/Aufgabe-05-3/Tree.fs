@@ -7,7 +7,9 @@ let ex = Node (Node (Leaf, 1N, (Node (Leaf, 2N, Leaf))), 3N, (Node (Leaf, 4N, Le
 
 // a)
 let rec countNodes<'a> (t: Tree<'a>): Nat =
-    failwith "TODO"
+    match t with
+        | Leaf        -> 0N
+        | Node(a,m,b) -> 1N + countNodes(a) + countNodes(b)
 
 // b)
 let rec countLeaves<'a> (t: Tree<'a>): Nat =
