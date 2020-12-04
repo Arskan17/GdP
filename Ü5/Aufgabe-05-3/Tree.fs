@@ -13,7 +13,9 @@ let rec countNodes<'a> (t: Tree<'a>): Nat =
 
 // b)
 let rec countLeaves<'a> (t: Tree<'a>): Nat =
-    failwith "TODO"
+    match t with
+    |Leaf     -> 1N
+    |Node(a,m,b) -> 0N + countLeaves a + countLeaves b
 
 // c)
 let rec mirror<'a> (t: Tree<'a>): Tree<'a> =
