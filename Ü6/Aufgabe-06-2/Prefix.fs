@@ -13,8 +13,17 @@ let exInvalid2 = [Plus; Star; INum 1N; INum 2N; INum 3N; Star]
 
 // a)
 let parse (xs: Input list): Option<Expr> =
-    failwith "TODO"
+    let rec b (xs: Input list)(s:Expr list): Option<Expr>=
+        match (xs,b) with
+            |(INum n::x,y)     -> helpfun(x,Num n::y)
+            |(Plus::x,a::b::c) -> helpfun(x,Add (b,a)::c)
+            |(Star::x,a::b::c) -> helpfun(x,Mul (b,a)::c)
+            |([],[a])          -> Some a
+            |_                 -> None
+    helpfun (xs,[])
 
+
+     
 // b)
 let rec eval (e: Expr): Nat =
     failwith "TODO"

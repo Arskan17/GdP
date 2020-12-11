@@ -10,7 +10,7 @@ let m3: MapUnsortedList<Nat, String> = [(5N, "Bob"); (1N, "Lisa"); (6N, "Schorsc
 
 // a)
 let isEmpty<'k, 'v when 'k: equality> (m: MapUnsortedList<'k, 'v>): Bool =
-    failwith "TODO"
+    m.IsEmpty
 
 // b)
 let rec add<'k, 'v when 'k: equality> (key: 'k, value: 'v) (m: MapUnsortedList<'k, 'v>): MapUnsortedList<'k, 'v> =

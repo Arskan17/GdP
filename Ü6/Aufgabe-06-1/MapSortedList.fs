@@ -10,7 +10,7 @@ let m3: MapSortedList<Nat, String> = [(1N, "Lisa"); (4N, "Harry"); (5N, "Bob"); 
 
 // a)
 let isEmpty<'k, 'v when 'k: comparison> (m: MapSortedList<'k, 'v>): Bool =
-    failwith "TODO"
+    m.IsEmpty
 
 // b)
 let rec add<'k, 'v when 'k: comparison> (key: 'k, value: 'v) (m: MapSortedList<'k, 'v>): MapSortedList<'k, 'v> =
