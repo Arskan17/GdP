@@ -1,0 +1,57 @@
+// a)
+let isEmpty<'a> (l: MList<'a>): Bool =
+    l.size = 0N
+
+// b)
+let appendFront<'a> (v: 'a) (l: MList<'a>): Unit =
+    let newItem = {value = v; next = l.first}
+    l.first <- Some(newItem)
+    match l.last with
+    | None -> l.last <- Some(newItem) // Liste war leer
+    | _ -> ()
+    l.size <- l.size + 1N
+
+// c)
+let appendBack<'a> (v: 'a) (l: MList<'a>): Unit =
+    let newItem = {value = v; next = None}
+    match l.last with
+    | None -> l.first <- Some(newItem) // Liste war leer
+    | Some(last) -> last.next <- Some(newItem)
+    l.last <- Some(newItem)
+    l.size <- l.size + 1N
+
+// d)
+let get<'a> (index: Nat) (l: MList<'a>): Option<'a> =
+    let rec search (index: Nat) (item: Item<'a>): 'a =
+        if index = 0N then item.value
+        else search (index - 1N) item.next.Value // Value ist Ok da vorher schon auf Größe geachtet wird
+
+    if index >= l.size then None
+    else Some(search index l.first.Value) // Value ist Ok da vorher schon auf Größe geachtet wird
+
+// e)
+let update<'a> (index: Nat) (v: 'a) (l: MList<'a>): Unit =
+    let rec search (index: Nat) (item: Option<Item<'a>>): Option<Item<'a>> =
+        if index = 0N then item
+        else search (index - 1N) item.Value.next
+    if index < l.size then let item = search index l.first
+                           match item with
+                           | None -> ()
+                           | Some(item) -> item.value <- v
+
+// f)
+let remove<'a> (index: Nat) (l: MList<'a>): Unit =
+    let rec searchWithPrev (index: Nat) (item: Option<Item<'a>>) (prev: Option<Item<'a>>): Option<Item<'a>> * Option<Item<'a>>=
+        if index = 0N then prev, item
+        else searchWithPrev (index - 1N) item.Value.next item
+    if index < l.size && l.size <> 0N then
+        if l.size = 1N then l.first <- None
+                            l.last <- None
+        else let (prev, cur) = searchWithPrev index l.first None
+             match prev with
+             | None -> l.first <- l.first.Value.next // Liste ist mindestens 2 lang
+             | Some(prev) -> match cur with
+                             | None -> prev.next <- None // kann dieser Fall auftreten?
+                             | Some(cur) -> prev.next <- cur.next
+                                            if index = l.size - 1N then l.last <- Some(prev) // letztes Element wurde entfernt
+        l.size <- l.size - 1N

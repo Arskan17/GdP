@@ -1,0 +1,48 @@
+// a)
+let swap<'a> (ar: Array<'a>) (i: Int, j: Int): Unit =
+    let mutable tmp = ar.[i]
+    ar.[i]<- ar.[j]
+    ar.[j]<- tmp
+
+// b)
+let bubblesort<'a when 'a: comparison> (ar: Array<'a>): Unit =
+    let mutable n = ar.Length
+    let mutable swapped = true 
+    while swapped do
+      swapped <- false
+      for i in 0 .. n-2 do 
+      if ar.[i]>ar.[i+1] then 
+       swap ar (i,i+1)
+       swapped <- true
+       
+
+// c)
+let reverse<'a> (ar: Array<'a>): Unit =
+    let mutable a = 0
+    let mutable n = ar.Length
+    let mutable tmp = n-1
+    let mutable swapped = n-1
+    while swapped <> 0 do 
+        swapped <- swapped - 1
+        for i in 0 .. tmp-1 do 
+          if swapped <> 0 then  
+          swap ar (i,i+1)
+          tmp <- tmp-1     // NE RIEN CONSIDERE DU HAUT IDEE A CORRIGER PLUS TARD
+          
+
+let reverse<'a> (ar: Array<'a>): Unit =
+     if ar.Length >= 2 then
+         let len = ar.Length - 1
+         for i in 0..(len / 2) do
+             swap ar (i, (len - i))
+
+// d)
+let same<'a when 'a: equality> (xs: List<'a>) (ar: Array<'a>): Bool =
+    let n = xs.Length
+    let t = ar.Length
+    if n <> t then false else 
+     let rec search (i: Int) (xs: List<'a>) (ar: Array<'a>):Bool= 
+         match xs with 
+         |[]-> true
+         |n::ns -> if ar.[i] = n then search(i+1) ns ar else false
+     search 0 xs ar
